@@ -1,0 +1,109 @@
+{
+  "name": "alt-text-generator",
+  "displayName": "Alt Text Generator",
+  "description": "Generate alt text for images using OpenAI's GPT-4 Vision models.",
+  "license": "MIT",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "alt-text-generator.generateAltText",
+        "title": "Generate Alt Text",
+        "category": "AltTextGen"
+      },
+      {
+        "command": "alt-text-generator.fromEditorSelection",
+        "title": "Generate Alt Text from Editor Selection",
+        "category": "AltTextGen"
+      },
+      {
+        "command": "alt-text-generator.fromFile",
+        "title": "Generate Alt Text from File",
+        "category": "AltTextGen"
+      },
+      {
+        "command": "alt-text-generator.resetAPIKey",
+        "title": "Reset API Key",
+        "category": "AltTextGen"
+      }
+    ],
+    "configuration": {
+      "title": "Alt Text Generator",
+      "properties": {
+        "alt-text-generator.prompt": {
+          "type": "string",
+          "default": "Generate brief alt text for this image under 60 characters",
+          "description": "The prompt used when generating alt text for an image. This prompt is sent to the OpenAI API along with the image.",
+          "maxLength": 250
+        },
+        "alt-text-generator.model": {
+          "type": "string",
+          "enum": [
+            "gpt-4-turbo",
+            "gpt-4-turbo-2024-04-09",
+            "gpt-4-turbo-preview",
+            "gpt-4-0125-preview",
+            "gpt-4-1106-preview",
+            "gpt-4-vision-preview",
+            "gpt-4-1106-vision-preview"
+          ],
+          "default": "gpt-4-turbo",
+          "description": "The model used when sending the request to OpenAI. Choose from the various available GPT models that have image description capabilities."
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "alt-text-generator.generateAltText",
+          "group": "commands",
+          "when": "editorHasSelection"
+        }
+      ],
+      "explorer/context": [
+        {
+          "when": "resourceExtname == .png || resourceExtname == .jpg || resourceExtname == .jpeg || resourceExtname == .gif ",
+          "command": "alt-text-generator.fromFile",
+          "group": "navigation"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.88.0",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "@vscode/test-cli": "^0.0.8",
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.57.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "openai": "^4.33.1"
+  }
+}
