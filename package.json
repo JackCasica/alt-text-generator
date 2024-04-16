@@ -2,6 +2,12 @@
   "name": "alt-text-generator",
   "displayName": "Alt Text Generator",
   "description": "Generate alt text for images using OpenAI's GPT-4 Vision models.",
+  "icon": "./assets/alt-text-generator-logo.png",
+  "publisher": "Jack Casica",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JackCasica/alt-text-generator"
+  },
   "license": "MIT",
   "version": "0.0.1",
   "engines": {
@@ -11,8 +17,12 @@
     "AI",
     "Other"
   ],
+  "bugs": {
+    "url": "https://github.com/JackCasica/alt-text-generator/issues"
+  },
   "activationEvents": [],
   "main": "./dist/extension.js",
+  "homepage": "https://github.com/JackCasica/alt-text-generator#readme",
   "contributes": {
     "commands": [
       {

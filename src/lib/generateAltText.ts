@@ -5,9 +5,9 @@ import * as path from "path";
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
 
+import { askForAPIKey } from "./askForAPIKey";
 import { getBase64Url } from "./getBase64Url";
 import { isUrl } from "./isUrl";
-import { askForAPIKey } from "./askForAPIKey";
 
 /*
 
@@ -23,7 +23,7 @@ export const generateAltText = async (
   const apiKey = await askForAPIKey(context);
   const openai = new OpenAI({ apiKey: apiKey });
   const prompt = vscode.workspace
-    .getConfiguration("alt-text-gen")
+    .getConfiguration("alt-text-generator")
     .get("prompt") as string;
 
   let imageUrl = imagePath;
